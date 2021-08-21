@@ -1,22 +1,35 @@
 package dao;
 
 import model.User;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.List;
+
 @Repository
-public class UserDaoImp { //implements UserDao {
+public class UserDaoImp implements UserDao {
 
-//    @Autowired
-//    private SessionFactory sessionFactory;
-//
-//    @Override
-//    public void add(User user) {
-//        sessionFactory.getCurrentSession().save(user);
-//    }
+    @PersistenceContext
+    EntityManager entityManager;
 
+    public List<User> getAllUsers() {
+        return entityManager.createQuery("From User", User.class).getResultList();
+    }
 
+    public void addUser(User user){
+        entityManager.persist(user);
+    }
 
+    public void updateUser(User user){
+        entityManager.merge(user);
+    }
 
+    public User getUserById(Long id){
+        return entityManager.find(User.class, id);
+    }
+
+    public void deleteUser(User user){
+        entityManager.remove(entityManager.contains(user)? user: entityManager.merge(user));
+    }
 }
