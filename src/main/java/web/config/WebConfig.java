@@ -1,5 +1,6 @@
 package web.config;
 
+import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -29,7 +30,7 @@ import java.util.Properties;
 @EnableWebMvc
 @PropertySource("classpath:db.properties")
 @EnableTransactionManagement
-@ComponentScan(value = "java")
+//@ComponentScan(basePackages = "java")
 @ComponentScan("web")
 @ComponentScan("service")
 @ComponentScan("dao")
@@ -73,7 +74,7 @@ public class WebConfig implements WebMvcConfigurer {
         LocalContainerEntityManagerFactoryBean em
                 = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource());
-        em.setPackagesToScan(new String[] { "com.baeldung.persistence.model" });
+        em.setPackagesToScan("model");
 
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);

@@ -11,22 +11,22 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
+    @Column(nullable = false, name = "name" )
     private String firstName;
 
-    @Column(name = "last_name")
+    @Column(nullable = true, name = "last_name")
     private String lastName;
 
-    @Column(name = "ear")
-    private int ear;
+    @Column(name = "age")
+    private int age;
 
     public User() {
     }
 
-    public User(String firstName, String lastName, int ear) {
+    public User(String firstName, String lastName, int age) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.ear = ear;
+        this.age= age;
     }
 
     public Long getId() {
@@ -53,12 +53,12 @@ public class User {
         this.lastName = lastName;
     }
 
-    public int getEar() {
-        return ear;
+    public int getAge() {
+        return age;
     }
 
-    public void setEar(int ear) {
-        this.ear = ear;
+    public void setAge(int age) {
+        this.age = age;
     }
 
     @Override
@@ -67,7 +67,7 @@ public class User {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", ear=" + ear +
+                ", ear=" + age +
                 '}';
     }
 }
